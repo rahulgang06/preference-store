@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+app:
+  dbConfig:
+    user: root
+    password:
+    url: "jdbc:mysql://localhost:3306/Origamee?useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true&useSSL=false"
+    acquireIncrement: 5
+    initialPoolSize: 5
+    minPoolSize: 0
+    maxPoolSize: 100
+    maxIdleTime: 840000
+    maxStatements: 500
+    idleConnectionTestPeriod: 1800000
+    testStatement: "SELECT 1"
+    connectionTimeout: 2000
+    maxLifeTime: 1800000
+    autoCommit: true
+    readOnly: false
+    keepAliveTime: 600000
