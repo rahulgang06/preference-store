@@ -23,5 +23,7 @@ public class PreferencesController {
         return preferencesMgmtService.createUser(request);
     }
     @PutMapping("/updatePreference")
-    public PreferencesResponse update(@RequestBody)
+    public PreferencesResponse update(@RequestBody CreatePreferencesRequest request){
+        return preferencesMgmtService.updateUser(request);
+    }
 }

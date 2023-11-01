@@ -18,7 +18,7 @@ public class Preferences {
     int schemaVersion;
     private String owner;
     private String status;
-    private String description;
+       private String description;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private String createdBy;

@@ -26,6 +26,10 @@ public class PreferencesMgmtService {
         Preferences preferences = repository.createUserPreferences(convertCreatePreferencesRequest(request));
         return convertPreferencesToInfoResponse(preferences);
     }
+    public PreferencesResponse updateUser(CreatePreferencesRequest request){
+        Preferences preferences = repository.updateUserPreferences(convertCreatePreferencesRequest(request));
+        return convertPreferencesToInfoResponse(preferences);
+    }
 
 
     private PreferencesResponse convertPreferencesToInfoResponse(Preferences user) {

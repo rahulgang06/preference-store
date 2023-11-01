@@ -25,7 +25,7 @@ public class PreferencesRepository {
     }
 
 
-    public Preferences createUserPreferences(Preferences preferences) {
+    public Preferences updateUserPreferences(Preferences preferences) {
         return jdbi.withExtension(PreferencesDao.class, dao -> {
             Integer id = dao.updateEntity(preferences);
             preferences.setId(Long.valueOf(id));
