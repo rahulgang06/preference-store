@@ -8,8 +8,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CreatePreferenceRegistryRequest {
-    private String tenantId;
-    private String preferenceType;
-    int schemaVersion;
+public class PreferenceRegistryUpsertRequest {
+    String tenantId;
+    String preferenceType;
 }

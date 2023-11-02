@@ -9,9 +9,10 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CreatePreferencesRequest {
-    private String tenantId;
-    private String preferenceType;
-    int schemaVersion;
-    private String owner;
+public class CreatePreferenceRequest {
+    String tenantId;
+    String preferenceType;
+    String owner;
+    byte[] data;
+    // ToDo add resourceId, description;
 }

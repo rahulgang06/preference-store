@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-public class PreferencesResponse {
+public class PreferenceResponse {
     private String tenantId;
     private String preferenceType;
     private String resourceID;

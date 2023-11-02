@@ -2,7 +2,7 @@ package com.demo.preference_store.repository;
 
 
 import com.demo.preference_store.dao.PreferencesDao;
-import com.demo.preference_store.entity.Preferences;
+import com.demo.preference_store.entity.Preference;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,20 +16,19 @@ public class PreferencesRepository {
 
     Jdbi jdbi;
 
-    public Preferences createUserPreferences(Preferences preferences) {
+    public Preference createPreference(Preference preference) {
         return jdbi.withExtension(PreferencesDao.class, dao -> {
-            Integer id = dao.insert(preferences);
-            preferences.setId(Long.valueOf(id));
-            return preferences;
+            Integer id = dao.insert(preference);
+            preference.setId(Long.valueOf(id));
+            return preference;
         });
     }
 
 
-    public Preferences updateUserPreferences(Preferences preferences) {
+    public Preference updatePreference(Preference preference) {
         return jdbi.withExtension(PreferencesDao.class, dao -> {
-            Integer id = dao.updateEntity(preferences);
-            preferences.setId(Long.valueOf(id));
-            return preferences;
+            dao.updateEntity(preference);
+            return preference;
         });
     }
 }

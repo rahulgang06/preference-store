@@ -1,8 +1,9 @@
 package com.demo.preference_store.service;
 
-import com.demo.preference_store.dto.CreatePreferencesRequest;
-import com.demo.preference_store.dto.PreferencesResponse;
-import com.demo.preference_store.entity.Preferences;
+import com.demo.preference_store.dto.CreatePreferenceRequest;
+import com.demo.preference_store.dto.PreferenceResponse;
+import com.demo.preference_store.entity.Preference;
+import com.demo.preference_store.repository.PreferenceRegistryRepository;
 import com.demo.preference_store.repository.PreferencesRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,27 +17,39 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PreferencesMgmtService {
 
+    PreferenceRegistryRepository preferenceRegistryRepository;
 
     PreferencesRepository repository;
 
-    public PreferencesResponse createUser(CreatePreferencesRequest request){
-        Preferences preferences = repository.createUserPreferences(convertCreatePreferencesRequest(request));
-        return convertPreferencesToInfoResponse(preferences);
+    public PreferenceResponse createPreference(CreatePreferenceRequest request) {
+        // ToDo check if already exist, then throw error
+        // ToDo: validate in preference registry, if preference type exists.
+
+        // ToDo get max of preference regsitry.
+
+        // Pass latest schema version to create preference.
+        Preference preference = repository.createPreference(convertCreatePreferencesRequest(request, 0));
+        return convertPreferencesToInfoResponse(preference);
     }
-    public PreferencesResponse updateUser(CreatePreferencesRequest request){
-        Preferences preferences = repository.updateUserPreferences(convertCreatePreferencesRequest(request));
-        return convertPreferencesToInfoResponse(preferences);
+
+    // ToDo: create separate request object for updatePreference (schemaVersion is extra)
+    public PreferenceResponse updatePreference(CreatePreferenceRequest request) {
+        // ToDo check if preferenceRegistry with specific schema version exists or not.
+        // ToDo get and check if preference exists or not (if not throw exception)
+        // ToDo Schema Version will come from user.
+        Preference preference = repository.updatePreference(convertCreatePreferencesRequest(request, 0));
+        return convertPreferencesToInfoResponse(preference);
     }
 
 
-    private PreferencesResponse convertPreferencesToInfoResponse(Preferences user) {
-        PreferencesResponse response = new PreferencesResponse();
+    private PreferenceResponse convertPreferencesToInfoResponse(Preference user) {
+        PreferenceResponse response = new PreferenceResponse();
         response.setTenantId(user.getTenantId());
         response.setPreferenceType(user.getPreferenceType());
-        response.setResourceID(user.getResourceID());
+        response.setResourceID(user.getResourceId());
         response.setOwner(user.getOwner());
         response.setSchemaVersion(user.getSchemaVersion());
         response.setStatus(user.getStatus());
@@ -44,15 +57,16 @@ public class PreferencesMgmtService {
         response.setUpdatedAt(user.getUpdatedAt());
         return response;
     }
-    private Preferences convertCreatePreferencesRequest(CreatePreferencesRequest request) {
-        Preferences user = new Preferences();
+
+    private Preference convertCreatePreferencesRequest(CreatePreferenceRequest request, int schemaVersion) {
+        Preference user = new Preference();
         user.setTenantId(request.getTenantId());
         user.setPreferenceType(request.getPreferenceType());
         user.setStatus("ACTIVE");
         user.setOwner(request.getOwner());
-        user.setResourceID(UUID.randomUUID()
+        user.setResourceId(UUID.randomUUID()
                 .toString());
-        user.setSchemaVersion(request.getSchemaVersion());
+        user.setSchemaVersion(schemaVersion);
         user.setCreatedAt(Timestamp.from(Instant.now()));
         user.setUpdatedAt(Timestamp.from(Instant.now()));
         return user;

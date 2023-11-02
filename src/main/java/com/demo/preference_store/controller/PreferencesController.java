@@ -1,8 +1,8 @@
 package com.demo.preference_store.controller;
 
 
-import com.demo.preference_store.dto.CreatePreferencesRequest;
-import com.demo.preference_store.dto.PreferencesResponse;
+import com.demo.preference_store.dto.CreatePreferenceRequest;
+import com.demo.preference_store.dto.PreferenceResponse;
 import com.demo.preference_store.service.PreferencesMgmtService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -12,18 +12,20 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController("/api/v1/preference")
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PreferencesController {
 
     PreferencesMgmtService preferencesMgmtService;
-    @PostMapping("/createPreferences")
-    public PreferencesResponse createUser(@RequestBody CreatePreferencesRequest request){
-        return preferencesMgmtService.createUser(request);
+
+    @PostMapping("/")
+    public PreferenceResponse createPreference(@RequestBody CreatePreferenceRequest request) {
+        return preferencesMgmtService.createPreference(request);
     }
-    @PutMapping("/updatePreference")
-    public PreferencesResponse update(@RequestBody CreatePreferencesRequest request){
-        return preferencesMgmtService.updateUser(request);
+
+    @PutMapping("/")
+    public PreferenceResponse update(@RequestBody CreatePreferenceRequest request) {
+        return preferencesMgmtService.updatePreference(request);
     }
 }

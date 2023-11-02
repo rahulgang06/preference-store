@@ -1,8 +1,7 @@
 package com.demo.preference_store.controller;
 
-import com.demo.preference_store.dto.CreatePreferenceRegistryRequest;
+import com.demo.preference_store.dto.PreferenceRegistryUpsertRequest;
 import com.demo.preference_store.dto.PreferenceRegistryResponse;
-import com.demo.preference_store.entity.PreferenceRegistry;
 import com.demo.preference_store.service.PreferenceRegistryMgmtService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -13,20 +12,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@RestController
+@RestController("/api/v1/preference/registry")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
-
 public class PreferenceRegistryController {
 
     PreferenceRegistryMgmtService preferenceRegistryMgmtService;
-    @PostMapping("/createPreferenceRegistry")
-    public PreferenceRegistryResponse createUser(@RequestBody CreatePreferenceRegistryRequest request){
-        return preferenceRegistryMgmtService.createUser(request);
+    @PostMapping("/")
+    public PreferenceRegistryResponse createPreferenceRegistry(@RequestBody PreferenceRegistryUpsertRequest request){
+        return preferenceRegistryMgmtService.createPreferenceRegistry(request);
     }
 
-    @PutMapping("/updatePreferenceRegistry")
-    public PreferenceRegistryResponse updateUser(@RequestBody CreatePreferenceRegistryRequest request){
-        return preferenceRegistryMgmtService.createUser(request);
+    @PutMapping("/")
+    public PreferenceRegistryResponse updatePreferenceRegistry(@RequestBody PreferenceRegistryUpsertRequest request){
+        return preferenceRegistryMgmtService.updatePreferenceRegistry(request);
     }
 }
